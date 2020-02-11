@@ -915,6 +915,32 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_SERVO(p)         (p)
 #define analogRead(p)           analogRead(_ANALOG_PIN(p)) // wrap function for analogRead()
 
+
+// Axon (ATmega640)
+#elif defined(ARDUINO_AVR_ATmega640)
+#define TOTAL_ANALOG_PINS       NUM_ANALOG_INPUTS
+#define TOTAL_PINS              NUM_DIGITAL_PINS
+#define TOTAL_PORTS             TOTAL_PINS
+#define VERSION_BLINK_PIN       LED_BUILTIN
+#define IS_PIN_DIGITAL(p)       1
+#define IS_PIN_ANALOG(p)        ((p) >= PIN_A0 && (p) <= PIN_A15)
+#define IS_PIN_PWM(p)           digitalPinHasPWM(p)
+#define IS_PIN_SERVO(p)         IS_PIN_DIGITAL(p)
+#define IS_PIN_I2C(p)           ((p) == PIN_WIRE_SCL || (p) == PIN_WIRE_SDA)
+#define IS_PIN_SPI(p)           ((p) == SS || (p) == MOSI || (p) == MISO || (p) == SCK)
+#define IS_PIN_SERIAL(p)        ((p) == 0 || (p) == 1 || (p) == 8 || (p) == 9 || (p) == 36 || (p) == 37 || (p) == 52 || (p) == 53)
+#define IS_PIN_INTERRUPT(p)     (digitalPinToInterrupt(p) > NOT_AN_INTERRUPT)
+#define PIN_TO_DIGITAL(p)       analogInputToDigitalPin(p)
+#define PIN_TO_ANALOG(p)        ((p) - PIN_A0)
+#define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
+#define PIN_TO_SERVO(p)         (p)
+#define PIN_SERIAL1_RX          8
+#define PIN_SERIAL1_TX          9
+#define PIN_SERIAL2_RX          36
+#define PIN_SERIAL2_TX          37
+#define PIN_SERIAL3_RX          52
+#define PIN_SERIAL3_TX          53
+
 // anything else
 #else
 #error "Please edit Boards.h with a hardware abstraction for this board"
